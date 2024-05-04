@@ -1,8 +1,8 @@
-import { reactive } from 'vue'
+import { reactive, computed } from 'vue'
 import { Balance } from '../models/Balance'
 
 const useBalance = () => {
-    const balances: Array<Balance> = reactive([
+    let balances: Balance[] = reactive([
         {
             id: 1,
             dayOfWeek: 'Lunes',
@@ -59,13 +59,30 @@ const useBalance = () => {
             isActive: true
         },
     ])
-    const approbedBalances = balances.filter((item) => item.approbed)
-    const notApprobedBalances = balances.filter((item) => !item.approbed)
-    
+    const approbedBalances = computed(() => balances.filter((item) => item.approbed))
+    const notApprobedBalances = computed(() => balances.filter((item) => !item.approbed))
+    const currentBalance = computed(() => balances.at(-1))
+    const addBalance = (balance: Balance) => {
+        balances.push(balance)
+    }
+    const loadBalances = ({done}) => {
+        setTimeout(() => {
+            balances.push(...balances.map((item) => {
+                item.id = undefined
+                item.total = item.total + 10
+                return item
+            }))
+            if (balances.length === 0) done('empty')
+            else done ('ok')
+        }, 4000);
+    }
+
     return {
-        balances,
+        currentBalance,
         approbedBalances,
-        notApprobedBalances
+        notApprobedBalances,
+        addBalance,
+        loadBalances
     }
 }
 

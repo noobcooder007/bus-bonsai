@@ -2,20 +2,20 @@ import router from '../router'
 import { useUserDataStore } from '../store/useUserDataStore'
 
 const useAuthentication = () => {
-    debugger
-    const userData = useUserDataStore()
-    const login = () => {
-        userData.login()
+    const { userData, isAuthenticated, login, logout } = useUserDataStore()
+    const loginUser = (user: string, password: string) => {
+        login(user, password)
         router.push('home')
     }
-    const logout = () => {
-        userData.logout()
+    const logoutUser = () => {
+        logout()
         router.push('login')
     }
     return {
-        isAuthenticated: userData.isAuthenticated,
-        login,
-        logout
+        user: userData,
+        isAuthenticated,
+        login: loginUser,
+        logout: logoutUser
     }
 }
 

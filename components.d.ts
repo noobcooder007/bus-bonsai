@@ -7,6 +7,9 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AddBalanceDialog: typeof import('./src/components/AddBalanceDialog.vue')['default']
+    BalanceItem: typeof import('./src/components/BalanceItem.vue')['default']
+    Header: typeof import('./src/components/Header.vue')['default']
     Home: typeof import('./src/pages/Home.vue')['default']
     Login: typeof import('./src/pages/Login.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

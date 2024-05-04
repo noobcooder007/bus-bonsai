@@ -1,5 +1,5 @@
 export interface Balance {
-    id: number,
+    id?: number,
     dayOfWeek: String,
     week: number,
     total: number,
